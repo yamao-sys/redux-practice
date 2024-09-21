@@ -2,13 +2,13 @@ import { BaseButton } from '@/components/atoms/BaseButton';
 import { BaseSnackbar } from '@/components/atoms/BaseSnackbar';
 import { BookImage } from '@/pages/reading_records/components/atoms/BookImage';
 import { BaseLayout } from '@/pages/reading_records/components/organisms/BaseLayout';
-import { useReadingRecordContext } from '@/contexts/ReadingRecordContext';
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { NAVIGATION_PAGE } from '@/constants/navigation';
+import { useReadingRecord } from '@/hooks/useReadingRecord';
 
 export default function ReadingRecordLists() {
-  const { readingRecords, handleDeleteReadingRecord } = useReadingRecordContext();
+  const { readingRecords, handleDeleteReadingRecord } = useReadingRecord();
   const navigate = useNavigate();
 
   const handleRouteToEditPage = (id: string) =>
@@ -59,20 +59,20 @@ export default function ReadingRecordLists() {
                     labelText='編集する'
                     color='green'
                     additionalStyle='text-xs lg:text-sm py-1 px-4'
-                    onClick={() => handleRouteToEditPage(readingRecord.id)}
+                    onClick={() => handleRouteToEditPage(String(readingRecord.id))}
                   />
                   <BaseButton
                     labelText='削除する'
                     color='red'
                     additionalStyle='ml-4 text-xs lg:text-sm py-1 px-4'
-                    onClick={() => deleteReadingRecord(readingRecord.id)}
+                    onClick={() => deleteReadingRecord(String(readingRecord.id))}
                   />
                 </div>
               </div>
             </div>
           ))
         ) : (
-          <div className='mt-8'>まだ読書記録が未登録です。</div>
+          <div className='mt-8 text-center'>まだ読書記録が未登録です。</div>
         )}
       </BaseLayout>
     </>

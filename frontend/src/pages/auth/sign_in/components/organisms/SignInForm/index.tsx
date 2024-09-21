@@ -39,7 +39,6 @@ export default function SignInForm() {
         setValidationErrors(response);
         setInputPassword('');
       } else {
-        console.log('signed');
         navigate(NAVIGATION_LIST.readingRecords.list);
       }
     } catch (error) {

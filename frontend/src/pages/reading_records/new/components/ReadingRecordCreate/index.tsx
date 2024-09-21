@@ -5,9 +5,9 @@ import { InputForm } from '@/components/atoms/InputForm';
 import { TextAreaForm } from '@/components/atoms/TextAreaForm';
 import { SubmitButton } from '@/components/molecules/SubmitButton';
 import { NAVIGATION_PAGE } from '@/constants/navigation';
-import { useReadingRecordContext } from '@/contexts/ReadingRecordContext';
 import { CreateReadingRecordDto } from '@/generated/reading_records/@types';
 import { SearchBooksResponseDto, SearchBooksResultDto } from '@/generated/search_books/@types';
+import { useReadingRecord } from '@/hooks/useReadingRecord';
 import { BookImage } from '@/pages/reading_records/components/atoms/BookImage';
 import { BaseFormLayout } from '@/pages/reading_records/components/organisms/BaseFormLayout';
 import { BaseLayout } from '@/pages/reading_records/components/organisms/BaseLayout';
@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDebounce } from 'react-use';
 
 export default function ReadingRecordCreate() {
-  const { handleCreateReadingRecord } = useReadingRecordContext();
+  const { handleCreateReadingRecord } = useReadingRecord();
 
   const [inputReadingRecord, setInputReadingRecord] = useState<CreateReadingRecordDto>({
     title: '',

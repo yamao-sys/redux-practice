@@ -20,7 +20,7 @@ vi.mock('react-router-dom', async () => {
   };
 });
 
-const useReadingRecordContext = vi.hoisted(() =>
+const useReadingRecord = vi.hoisted(() =>
   vi.fn(() => ({
     readingRecords: [
       {
@@ -45,11 +45,11 @@ const useReadingRecordContext = vi.hoisted(() =>
     handleDeleteReadingRecord: vi.fn(() => ({ result: true })),
   })),
 );
-vi.mock('@/contexts/ReadingRecordContext', async (importOriginal) => {
-  const mod = await importOriginal<typeof import('@/contexts/ReadingRecordContext')>();
+vi.mock('@/hooks/useReadingRecord', async (importOriginal) => {
+  const mod = await importOriginal<typeof import('@/hooks/useReadingRecord')>();
   return {
     ...mod,
-    useReadingRecordContext,
+    useReadingRecord,
   };
 });
 
