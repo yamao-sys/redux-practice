@@ -4,16 +4,16 @@ import {
   UpdateReadingRecordDto,
 } from '@/generated/reading_records/@types';
 import { useCallback, useEffect, useState } from 'react';
-import { useAuthContext } from '@/contexts/AuthContext';
 import {
   deleteReadingRecord,
   fetchReadingRecords,
   postCreateReadingRecord,
   updateReadingRecord,
 } from '@/apis/readingRecordsApi';
+import { useAuth } from './useAuth';
 
 export const useReadingRecord = () => {
-  const { isSignedIn } = useAuthContext();
+  const { isSignedIn } = useAuth();
   const [readingRecords, setReadingRecords] = useState<ReadingRecordDto[]>([]);
 
   const handleFetchReadingRecords = useCallback(async () => {
