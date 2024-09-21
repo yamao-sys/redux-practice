@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './auth';
+import readingRecordReducer from './readingRecord';
 import { useSelector as rawUseSelector, TypedUseSelectorHook } from 'react-redux';
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    readingRecord: readingRecordReducer,
   },
 });
 

@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 import { Provider } from 'react-redux';
-import { ReadingRecordProvider } from './contexts/ReadingRecordContext';
 import { store } from './store';
 
 type Props = {
@@ -10,9 +9,7 @@ type Props = {
 export const Layout = ({ children }: Props) => {
   return (
     <>
-      <Provider store={store}>
-        <ReadingRecordProvider>{children}</ReadingRecordProvider>
-      </Provider>
+      <Provider store={store}>{children}</Provider>
     </>
   );
 };

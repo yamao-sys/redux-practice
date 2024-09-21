@@ -4,8 +4,8 @@ import { InputForm } from '@/components/atoms/InputForm';
 import { TextAreaForm } from '@/components/atoms/TextAreaForm';
 import { SubmitButton } from '@/components/molecules/SubmitButton';
 import { NAVIGATION_PAGE } from '@/constants/navigation';
-import { useReadingRecordContext } from '@/contexts/ReadingRecordContext';
 import { ReadingRecordDto, UpdateReadingRecordDto } from '@/generated/reading_records/@types';
+import { useReadingRecord } from '@/hooks/useReadingRecord';
 import { BookImage } from '@/pages/reading_records/components/atoms/BookImage';
 import { BaseFormLayout } from '@/pages/reading_records/components/organisms/BaseFormLayout';
 import { BaseLayout } from '@/pages/reading_records/components/organisms/BaseLayout';
@@ -13,7 +13,7 @@ import { useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 export const ReadingRecordEdit = () => {
-  const { readingRecords, handleUpdateReadingRecord } = useReadingRecordContext();
+  const { readingRecords, handleUpdateReadingRecord } = useReadingRecord();
 
   const urlParams = useParams();
   const targetId = useMemo(() => urlParams.id, [urlParams]);

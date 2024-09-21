@@ -20,18 +20,18 @@ vi.mock('react-router-dom', async () => {
   };
 });
 
-const useReadingRecordContext = vi.hoisted(() =>
+const useReadingRecord = vi.hoisted(() =>
   vi.fn(() => ({
     readingRecords: [],
     handleCreateReadingRecord: vi.fn(),
     handleDeleteReadingRecord: vi.fn(),
   })),
 );
-vi.mock('@/contexts/ReadingRecordContext', async (importOriginal) => {
-  const mod = importOriginal<typeof import('@/contexts/ReadingRecordContext')>();
+vi.mock('@/hooks/useReadingRecord', async (importOriginal) => {
+  const mod = importOriginal<typeof import('@/hooks/useReadingRecord')>();
   return {
     ...mod,
-    useReadingRecordContext,
+    useReadingRecord,
   };
 });
 

@@ -3,7 +3,7 @@ import {
   ReadingRecordDto,
   UpdateReadingRecordDto,
 } from '@/generated/reading_records/@types';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import {
   deleteReadingRecord,
   fetchReadingRecords,
@@ -11,22 +11,27 @@ import {
   updateReadingRecord,
 } from '@/apis/readingRecordsApi';
 import { useAuth } from './useAuth';
+import { useSelector } from '@/store';
+import { useDispatch } from 'react-redux';
+import { setReadingRecords } from '@/store/readingRecord';
 
 export const useReadingRecord = () => {
   const { isSignedIn } = useAuth();
-  const [readingRecords, setReadingRecords] = useState<ReadingRecordDto[]>([]);
+
+  const readingRecords = useSelector((state) => state.readingRecord.readingRecords);
+  const dispatch = useDispatch();
 
   const handleFetchReadingRecords = useCallback(async () => {
     const data = await fetchReadingRecords();
-    setReadingRecords(data);
-  }, []);
+    dispatch(setReadingRecords(data));
+  }, [dispatch]);
 
   const handleCreateReadingRecord = useCallback(
     async (inputReadingRecord: CreateReadingRecordDto) => {
       const res = await postCreateReadingRecord(inputReadingRecord);
-      setReadingRecords([...readingRecords, res]);
+      dispatch(setReadingRecords([...readingRecords, res]));
     },
-    [readingRecords],
+    [readingRecords, dispatch],
   );
 
   const handleUpdateReadingRecord = useCallback(
@@ -36,9 +41,9 @@ export const useReadingRecord = () => {
         readingRecord.id === Number(id) ? res : readingRecord,
       );
 
-      setReadingRecords(newReadingRecords);
+      dispatch(setReadingRecords(newReadingRecords));
     },
-    [readingRecords],
+    [readingRecords, dispatch],
   );
 
   const handleDeleteReadingRecord = useCallback(
@@ -46,11 +51,11 @@ export const useReadingRecord = () => {
       await deleteReadingRecord(id);
 
       const newReadingRecords = readingRecords.filter(
-        (readingRecord: ReadingRecordDto) => readingRecord.id !== id,
+        (readingRecord: ReadingRecordDto) => readingRecord.id !== Number(id),
       );
-      setReadingRecords(newReadingRecords);
+      dispatch(setReadingRecords(newReadingRecords));
     },
-    [readingRecords],
+    [readingRecords, dispatch],
   );
 
   useEffect(() => {
